@@ -10,10 +10,10 @@ import './AppShell.css'
 // `planets: true` marks the entry whose planet list can be expanded.
 const NAV = [
   { to: '/', label: 'Home', end: true },
+  { to: '/explore-tour', label: 'Explore' },
   { to: '/explore', label: 'System View' },
   { to: '/viewport', label: 'Planet Viewport', planets: true },
   { to: '/orbit', label: 'Orbital Simulator' },
-  { to: '/more-planets', label: 'More planets' },
   { to: '/planet-questions', label: 'Planet questions' },
   { to: '/about', label: 'About' },
 ]

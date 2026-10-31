@@ -18,13 +18,13 @@ const routes = [
     HydrateFallback: AppLoading,
     children: [
       { index: true, lazy: page(() => import('./pages/home/HomePage.jsx')) },
+      { path: 'explore-tour', lazy: page(() => import('./pages/ExploreTourPage.jsx')) },
       { path: 'explore/:host?', lazy: page(() => import('./pages/ExplorePage.jsx')) },
       { path: 'planet/:id', lazy: page(() => import('./pages/PlanetPage.jsx')) },
       { path: 'planet/:id/orbit', lazy: page(() => import('./pages/OrbitPage.jsx')) },
       { path: 'viewport/:id?', lazy: page(() => import('./pages/viewport/PlanetViewportPage.jsx')) },
       { path: 'orbit', lazy: page(() => import('./pages/OrbitIndexPage.jsx')) },
       { path: 'about', lazy: page(() => import('./pages/AboutPage.jsx')) },
-      { path: 'more-planets', lazy: page(() => import('./pages/MorePlanetsPage.jsx')) },
       { path: 'planet-questions', lazy: page(() => import('./pages/PlanetQuestionsPage.jsx')) },
       { path: 'compare', lazy: page(() => import('./pages/ComparePage.jsx')) },
       // Dev-only 3D sandbox; excluded from production builds.
