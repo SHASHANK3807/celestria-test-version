@@ -24,8 +24,8 @@ const routes = [
       { path: 'viewport/:id?', lazy: page(() => import('./pages/viewport/PlanetViewportPage.jsx')) },
       { path: 'orbit', lazy: page(() => import('./pages/OrbitIndexPage.jsx')) },
       { path: 'about', lazy: page(() => import('./pages/AboutPage.jsx')) },
-      // Catalog (CatalogPage.jsx) and Compare are kept in the codebase but not
-      // routed or linked until they are designed.
+      { path: 'more-planets', lazy: page(() => import('./pages/MorePlanetsPage.jsx')) },
+      { path: 'planet-questions', lazy: page(() => import('./pages/PlanetQuestionsPage.jsx')) },
       { path: 'compare', lazy: page(() => import('./pages/ComparePage.jsx')) },
       // Dev-only 3D sandbox; excluded from production builds.
       ...(import.meta.env.DEV ? [{ path: 'lab/:viewport?', lazy: page(() => import('./three/lab/LabPage.jsx')) }] : []),

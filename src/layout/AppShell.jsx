@@ -13,6 +13,8 @@ const NAV = [
   { to: '/explore', label: 'System View' },
   { to: '/viewport', label: 'Planet Viewport', planets: true },
   { to: '/orbit', label: 'Orbital Simulator' },
+  { to: '/more-planets', label: 'More planets' },
+  { to: '/planet-questions', label: 'Planet questions' },
   { to: '/about', label: 'About' },
 ]
 

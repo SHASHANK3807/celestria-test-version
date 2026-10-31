@@ -96,7 +96,7 @@ export default function SystemScene({
 
   return (
     <>
-      <Starfield />
+      <Starfield count={2500} />
       <Star radius={model.star.displayRadius} color={model.star.color} seed={model.star.seed} />
 
       {model.planets.map((p) => (
@@ -116,7 +116,14 @@ export default function SystemScene({
             else groups.current.delete(p.id)
           }}
         >
-          <ProceduralPlanet params={p.params} detail="system" radius={p.displayRadius} lightPosition={ORIGIN} spinSpeed={0.12} />
+          <ProceduralPlanet
+            params={p.params}
+            detail="system"
+            radius={p.displayRadius}
+            lightPosition={ORIGIN}
+            spin={false}
+            animate={false}
+          />
           {/* Larger invisible hit target so small planets are easy to click. */}
           <mesh
             onClick={(e) => {
@@ -142,9 +149,9 @@ export default function SystemScene({
       <OrbitControls
         makeDefault
         enablePan={false}
+        enableRotate={false}
         enableDamping
         dampingFactor={0.08}
-        rotateSpeed={0.5}
         zoomSpeed={0.7}
         minDistance={0.8}
         maxDistance={overviewDistance * 2.5}

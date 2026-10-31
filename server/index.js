@@ -9,6 +9,8 @@ import express from 'express'
 import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import planetsRouter from './routes/planets.js'
+import { catalogHealth, getCatalog } from './nasa/cache.js'
 
 const PRODUCTION = process.argv.includes('--production')
 // Hosts (Render, Railway…) assign PORT in production. In dev the API uses its
@@ -20,10 +22,16 @@ const app = express()
 app.disable('x-powered-by')
 app.use(express.json({ limit: '32kb' }))
 
-app.get('/api/health', (_req, res) => {
-  // catalog fields become real once the NASA cache exists (D3.3).
-  res.json({ ok: true, catalog: { count: 0, generatedAt: null, source: null } })
+app.get('/api/health', async (_req, res, next) => {
+  try {
+    await getCatalog()
+    res.json({ ok: true, catalog: catalogHealth() })
+  } catch (error) {
+    next(error)
+  }
 })
+
+app.use('/api', planetsRouter)
 
 app.use('/api', (_req, res) => {
   res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Unknown API route.' } })

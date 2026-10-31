@@ -1,20 +1,39 @@
 // Client for the CELESTRIA API — owner: DATA (D3.5).
 //
-// M0 stub: getCatalog/getPlanet serve local fixtures until the live API
-// (D3.4) is merged. Switching to live data is this one flag; no page changes.
-// Signatures follow src/contracts/api.js. Every failure throws ApiError.
+// Browser client for the server-side NASA catalog. The server owns live
+// fetching and snapshot fallback; local fixtures remain a last-resort offline
+// fallback so the interface is still usable when the API is not running.
 
 import { API_ERROR, ApiError } from '../contracts/api.js'
 import { fixtureGeneratedAt, fixturePlanets } from '../data/fixtures/index.js'
 
-const USE_FIXTURES = true
+async function request(path) {
+  let response
+  try {
+    response = await fetch(path, { cache: 'no-store' })
+  } catch {
+    throw new ApiError(API_ERROR.NETWORK, 'The catalog server could not be reached.')
+  }
+  let body
+  try {
+    body = await response.json()
+  } catch {
+    throw new ApiError(API_ERROR.UNKNOWN, 'The catalog server returned an invalid response.', response.status)
+  }
+  if (!response.ok) {
+    throw new ApiError(body.error?.code ?? API_ERROR.UNKNOWN, body.error?.message ?? 'Catalog request failed.', response.status)
+  }
+  return body
+}
 
 /** @returns {Promise<import('../contracts/api.js').CatalogResponse>} */
 export async function getCatalog() {
-  if (USE_FIXTURES) {
+  try {
+    return await request('/api/planets')
+  } catch (error) {
+    if (error.code !== API_ERROR.NETWORK) throw error
     return { generatedAt: fixtureGeneratedAt, source: 'fixtures', count: fixturePlanets.length, planets: fixturePlanets }
   }
-  throw new ApiError(API_ERROR.NOT_IMPLEMENTED, 'Live catalog not wired yet (D3.4/D3.5).')
 }
 
 /**
@@ -22,12 +41,14 @@ export async function getCatalog() {
  * @returns {Promise<import('../contracts/api.js').PlanetResponse>}
  */
 export async function getPlanet(id) {
-  if (USE_FIXTURES) {
+  try {
+    return await request(`/api/planets/${encodeURIComponent(id)}`)
+  } catch (error) {
+    if (error.code !== API_ERROR.NETWORK) throw error
     const planet = fixturePlanets.find((p) => p.id === id)
     if (!planet) throw new ApiError(API_ERROR.NOT_FOUND, `No planet with id "${id}".`, 404)
     return { planet, system: fixturePlanets.filter((p) => p.host === planet.host) }
   }
-  throw new ApiError(API_ERROR.NOT_IMPLEMENTED, 'Live planet lookup not wired yet (D3.4/D3.5).')
 }
 
 /**

@@ -12,9 +12,9 @@ import { surfaceFragment, surfaceVertex } from './shaders/surface.js'
 import { visualParams } from './visualParams.js'
 
 const DETAIL = {
-  hero: { subdivisions: 48, octaves: 6 },
-  card: { subdivisions: 20, octaves: 4 },
-  system: { subdivisions: 24, octaves: 5 },
+  hero: { subdivisions: 8, octaves: 6 },
+  card: { subdivisions: 5, octaves: 4 },
+  system: { subdivisions: 4, octaves: 4 },
 }
 
 // Shared across all planets of the same detail level; never disposed.
@@ -85,6 +85,7 @@ function createAtmosphereMaterial(params, shellScale) {
  * @param {[number, number, number]} props.lightPosition  world-space position of the star
  * @param {boolean} [props.spin=true]
  * @param {number} [props.spinSpeed=0.06]         rad/s, artistic
+ * @param {boolean} [props.animate=true]           animate procedural surface noise
  * @param {(e: any) => void} [props.onClick]
  */
 export default function ProceduralPlanet({
@@ -96,6 +97,7 @@ export default function ProceduralPlanet({
   lightPosition,
   spin = true,
   spinSpeed = 0.06,
+  animate = true,
   onClick,
   ...groupProps
 }) {
@@ -127,7 +129,7 @@ export default function ProceduralPlanet({
   const tilt = (params.seed - 0.5) * 0.6
 
   useFrame((state, delta) => {
-    surfaceMesh.current.material.uniforms.uTime.value = state.clock.elapsedTime
+    if (animate) surfaceMesh.current.material.uniforms.uTime.value = state.clock.elapsedTime
     if (spin) spinRef.current.rotation.y += delta * spinSpeed
   })
 

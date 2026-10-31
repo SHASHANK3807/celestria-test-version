@@ -7,14 +7,14 @@
   --color-surface: #0b0f17;
   --color-border: #1c2433;
   --color-text: #e9eef5;
-  --color-text-muted: #8a95a8;
+  --color-text-muted: #aab5c7;
   --color-accent: #8fd3e8;
 
   /* Provenance (CLAUDE.md §1.2) */
   --color-measured: #e9eef5;
   --color-calculated: #9fc6ff;
   --color-estimated: #d9b77a;
-  --color-missing: #5b6577;
+  --color-missing: #7f8ca0;
 
   --font-display: Georgia, 'Times New Roman', serif;
   --font-ui: system-ui, -apple-system, 'Segoe UI', sans-serif;

@@ -267,7 +267,7 @@
 
 .pp-hts-details__heading h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
 }
 
@@ -275,7 +275,7 @@
   display: block;
   margin-top: 4px;
   color: var(--color-text-muted);
-  font: 11px var(--font-mono);
+  font: 12px var(--font-mono);
 }
 
 .pp-hts-details__result {
@@ -291,7 +291,7 @@
 
 .pp-hts-details__result span {
   color: var(--color-text-muted);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -303,7 +303,7 @@
 
 .pp-hts-details__result em {
   color: var(--color-text);
-  font-size: 11px;
+  font-size: 12px;
   font-style: normal;
   white-space: nowrap;
 }
@@ -319,10 +319,10 @@
 }
 
 .pp-hts-details__intro {
-  margin: 8px 0 0;
+  margin: 12px 0 0;
   color: var(--color-text-muted);
-  font-size: 13px;
-  line-height: 1.55;
+  font-size: 14px;
+  line-height: 1.65;
 }
 
 .pp-hts-factors,
@@ -333,7 +333,7 @@
 }
 
 .pp-hts-factor {
-  padding: 10px 0;
+  padding: 14px 0;
   border-top: 1px solid var(--color-border);
 }
 
@@ -342,11 +342,11 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .pp-hts-status {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -364,31 +364,31 @@
 }
 
 .pp-hts-factor p {
-  margin: 4px 0;
+  margin: 7px 0;
   color: var(--color-text-muted);
-  font-size: 11px;
-  line-height: 1.45;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .pp-hts-factor ul {
   display: grid;
-  gap: 2px;
+  gap: 4px;
   margin: 0;
   padding: 0;
   list-style: none;
   color: var(--color-text-muted);
-  font: 10px var(--font-mono);
+  font: 11px/1.45 var(--font-mono);
 }
 
 .pp-hts-notes {
   display: grid;
-  gap: 5px;
+  gap: 8px;
   margin-top: var(--space-3);
   padding-top: var(--space-3);
   border-top: 1px solid var(--color-border);
   color: var(--color-text-muted);
-  font-size: 10px;
-  line-height: 1.45;
+  font-size: 12px;
+  line-height: 1.55;
 }
 
 .pp-actions {

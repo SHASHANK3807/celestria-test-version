@@ -9,6 +9,7 @@ import { scienceValue } from '../../contracts/planet.js'
 import { sig } from '../../three/shared/format.js'
 import { buildSystemModel, groupByHost } from '../../three/system/systemModel.js'
 import SystemViewport from '../../three/viewports/SystemViewport.jsx'
+import SearchableSelect from '../../components/ui/SearchableSelect.jsx'
 import './SystemExplorer.css'
 
 const SPEEDS = [0.25, 1, 4, 16]
@@ -62,6 +63,10 @@ function SystemExplorerInner({ system, systems, onHostChange, profileHref, reduc
   const model = useMemo(() => buildSystemModel(system.planets), [system])
   const selected = model.planets.find((p) => p.id === selectedId) ?? null
   const distancePc = scienceValue(system.planets[0].system?.distancePc)
+  const systemOptions = useMemo(
+    () => systems.map((entry) => ({ value: entry.host, label: `${entry.host} (${entry.planets.length})`, searchText: entry.host })),
+    [systems],
+  )
 
   return (
     <div className="sx">
@@ -84,16 +89,7 @@ function SystemExplorerInner({ system, systems, onHostChange, profileHref, reduc
         <p className="sx-star">{starLine(model.star, distancePc)}</p>
       </header>
 
-      <label className="sx-switch">
-        <span>System</span>
-        <select value={system.host} onChange={(e) => onHostChange(e.target.value)}>
-          {systems.map((s) => (
-            <option key={s.host} value={s.host}>
-              {s.host} ({s.planets.length})
-            </option>
-          ))}
-        </select>
-      </label>
+      <SearchableSelect className="sx-switch" label="System" value={system.host} options={systemOptions} onChange={onHostChange} />
 
       <div className="sx-controls" role="toolbar" aria-label="Simulation controls">
         <button type="button" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Resume' : 'Pause'}>
