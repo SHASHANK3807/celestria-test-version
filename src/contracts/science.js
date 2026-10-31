@@ -11,14 +11,16 @@
  * @typedef {'favorable'|'uncertain'|'unfavorable'|'unknown'} FactorStatus
  *
  * @typedef {Object} HabitabilityFactor
- * @property {string} key            'flux' | 'size' | 'mass' | 'gravity' | 'eqTemp' | 'star' | 'atmosphere'
+ * @property {string} key            'flux' | 'radius' | 'eqTemp' | 'star'
  * @property {string} label
  * @property {FactorStatus} status
  * @property {{ label: string, quantity: Quantity, unit: string }[]} inputs
  * @property {string} explanation    one line, plain language
  *
  * @typedef {Object} HabitabilityAssessment
- * @property {{ key: string, label: string }} tier   qualitative only — never a percentage
+ * @property {number|null} score     0–1 screening index, never a probability
+ * @property {{ known: number, total: number }} coverage
+ * @property {{ key: string, label: string }} tier
  * @property {HabitabilityFactor[]} factors
  * @property {string[]} notes        always includes the "HZ ≠ habitable" caveat
  */

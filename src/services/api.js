@@ -5,14 +5,14 @@
 // Signatures follow src/contracts/api.js. Every failure throws ApiError.
 
 import { API_ERROR, ApiError } from '../contracts/api.js'
-import { fixturePlanets } from '../data/fixtures/index.js'
+import { fixtureGeneratedAt, fixturePlanets } from '../data/fixtures/index.js'
 
 const USE_FIXTURES = true
 
 /** @returns {Promise<import('../contracts/api.js').CatalogResponse>} */
 export async function getCatalog() {
   if (USE_FIXTURES) {
-    return { generatedAt: new Date(0).toISOString(), source: 'fixtures', count: fixturePlanets.length, planets: fixturePlanets }
+    return { generatedAt: fixtureGeneratedAt, source: 'fixtures', count: fixturePlanets.length, planets: fixturePlanets }
   }
   throw new ApiError(API_ERROR.NOT_IMPLEMENTED, 'Live catalog not wired yet (D3.4/D3.5).')
 }

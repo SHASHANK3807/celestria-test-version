@@ -20,6 +20,7 @@ import {
   orbitalExtremes,
   surfaceGravity,
 } from '../../science/derived.js'
+import { assessHabitability } from '../../science/habitability.js'
 import { visualParams } from '../../three/planet/visualParams.js'
 import { describeBasis, sig } from '../../three/shared/format.js'
 import PlanetViewport from '../../three/viewports/PlanetViewport.jsx'
@@ -47,6 +48,11 @@ function Section({ title, children }) {
       <dl className="pp-section__list">{children}</dl>
     </section>
   )
+}
+
+function formatHabitabilityQuantity(quantity, unit) {
+  if (!quantity || quantity.value == null || quantity.status === 'missing' || quantity.status === 'imputed') return 'Unavailable'
+  return `${sig(quantity.value)} ${unit} · ${quantity.status}`
 }
 
 /** Unique source citations with the fields that use them. */
@@ -111,6 +117,8 @@ export default function PlanetProfile({
   const extremes = useMemo(() => orbitalExtremes(planet), [planet])
   const distanceLy = useMemo(() => distanceLightYears(planet.system?.distancePc), [planet])
   const sources = useMemo(() => collectSources(planet), [planet])
+  const habitability = useMemo(() => assessHabitability(planet), [planet])
+
 
   const index = planets.findIndex((p) => p.id === planet.id)
   const prev = index > 0 ? planets[index - 1] : planets.at(-1)
@@ -228,16 +236,55 @@ export default function PlanetProfile({
             <MeasurementRow label="Equilibrium temperature" q={planet.eqTempK} unit="K" />
           </Section>
 
-          <button
-            type="button"
-            className="pp-toggle"
-            aria-expanded={expanded}
-            aria-controls="pp-details"
-            onClick={() => setExpanded((v) => !v)}
-          >
-            {expanded ? 'Show less' : 'View more'}
-            <ChevronDown size={15} className={expanded ? 'is-flipped' : undefined} aria-hidden="true" />
-          </button>
+          <div className="pp-more-row">
+            <button
+              type="button"
+              className="pp-toggle"
+              aria-expanded={expanded}
+              aria-controls="pp-details"
+              onClick={() => setExpanded((v) => !v)}
+            >
+              {expanded ? 'Show less' : 'View more'}
+              <ChevronDown size={15} className={expanded ? 'is-flipped' : undefined} aria-hidden="true" />
+            </button>
+          </div>
+
+          <section className="pp-hts-details" aria-label="Habitability screening details">
+            <div className="pp-hts-details__heading">
+              <div>
+                <h2>How the screening score is calculated</h2>
+                <span>{habitability.coverage.known}/{habitability.coverage.total} available</span>
+              </div>
+              <div className={`pp-hts-details__result${habitability.score == null ? ' is-unavailable' : ''}`}>
+                <span>HTS score</span>
+                <strong>{habitability.score == null ? 'Unavailable' : habitability.score.toFixed(2)}</strong>
+                <em>{habitability.tier.label}</em>
+              </div>
+            </div>
+            <p className="pp-hts-details__intro">
+              HTS is a transparent screening index, not a probability of habitability or life. It uses the geometric mean of the available factors below.
+            </p>
+            <ul className="pp-hts-factors">
+              {habitability.factors.map((factor) => (
+                <li key={factor.key} className="pp-hts-factor">
+                  <div className="pp-hts-factor__head">
+                    <strong>{factor.label}</strong>
+                    <span className={`pp-hts-status is-${factor.status}`}>{factor.status}</span>
+                  </div>
+                  <p>{factor.explanation}</p>
+                  <ul>
+                    {factor.inputs.map((input) => (
+                      <li key={input.label}>{input.label}: {formatHabitabilityQuantity(input.quantity, input.unit)}</li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+            <ul className="pp-hts-notes">
+              {habitability.notes.map((note) => <li key={note}>{note}</li>)}
+              <li>Many parameters can affect habitability, but only these 4 are consistently available across the current planet data, so only these 4 are included in HTS.</li>
+            </ul>
+          </section>
 
           <div id="pp-details" className={`pp-expand${expanded ? ' is-open' : ''}`} aria-hidden={!expanded} inert={!expanded}>
             <div className="pp-expand__inner">

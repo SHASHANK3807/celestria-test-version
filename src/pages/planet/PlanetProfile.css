@@ -210,6 +210,212 @@
   cursor: not-allowed;
 }
 
+.pp-hts {
+  display: grid;
+  min-width: 150px;
+  padding: 8px 12px;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 48%, var(--color-border));
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--color-accent) 6%, transparent);
+  color: var(--color-text);
+  text-align: left;
+}
+
+.pp-hts.is-unavailable {
+  border-color: var(--color-border);
+  background: transparent;
+}
+
+.pp-hts__label,
+.pp-hts__coverage {
+  color: var(--color-text-muted);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pp-more-row {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.pp-more-row .pp-toggle {
+  margin-top: 0;
+}
+
+.pp-hts-details {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 28%, var(--color-border));
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--color-accent) 4%, var(--color-surface));
+}
+
+.pp-hts-details__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.pp-hts-details__heading > div:first-child {
+  min-width: 0;
+}
+
+.pp-hts-details__heading h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.pp-hts-details__heading > div:first-child > span {
+  display: block;
+  margin-top: 4px;
+  color: var(--color-text-muted);
+  font: 11px var(--font-mono);
+}
+
+.pp-hts-details__result {
+  display: grid;
+  flex: none;
+  justify-items: end;
+  gap: 2px;
+  padding: 6px 10px;
+  border: 1px solid color-mix(in srgb, var(--color-accent) 48%, var(--color-border));
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+}
+
+.pp-hts-details__result span {
+  color: var(--color-text-muted);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pp-hts-details__result strong {
+  font: 22px var(--font-mono);
+  color: var(--color-accent);
+}
+
+.pp-hts-details__result em {
+  color: var(--color-text);
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.pp-hts-details__result.is-unavailable {
+  border-color: var(--color-border);
+  background: transparent;
+}
+
+.pp-hts-details__result.is-unavailable strong {
+  color: var(--color-missing);
+  font-size: 14px;
+}
+
+.pp-hts-details__intro {
+  margin: 8px 0 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.pp-hts-factors,
+.pp-hts-notes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pp-hts-factor {
+  padding: 10px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.pp-hts-factor__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: 12px;
+}
+
+.pp-hts-status {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pp-hts-status.is-favorable {
+  color: var(--color-measured);
+}
+
+.pp-hts-status.is-uncertain {
+  color: var(--color-estimated);
+}
+
+.pp-hts-status.is-unknown {
+  color: var(--color-missing);
+}
+
+.pp-hts-factor p {
+  margin: 4px 0;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.pp-hts-factor ul {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-muted);
+  font: 10px var(--font-mono);
+}
+
+.pp-hts-notes {
+  display: grid;
+  gap: 5px;
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.pp-actions {
+  position: relative;
+}
+
+.pp-hts strong {
+  margin-top: 2px;
+  font: 20px var(--font-mono);
+  color: var(--color-accent);
+}
+
+.pp-hts.is-unavailable strong {
+  color: var(--color-missing);
+}
+
+.pp-hts__tier {
+  margin-top: 2px;
+  font-size: 11px;
+}
+
+.pp-hts__coverage {
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
 .pp-section {
   margin-top: clamp(32px, 5vh, 48px);
 }
